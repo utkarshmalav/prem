@@ -1,53 +1,61 @@
 const express = require('express');
 const cors = require('cors');
-const fs = require('fs');
-const bodyParser = require('body-parser');
-
 const app = express();
+const port = 5000;
+
+// Middleware to parse JSON bodies
+app.use(express.json());
+
+// Enable CORS for all routes
 app.use(cors());
-app.use(bodyParser.json());
 
-app.post('/create', (req, res) => {
-  const { fileName } = req.body;
-  fs.writeFile(fileName, '', (err) => {
-    if (err) {
-      return res.status(500).json({ message: 'Error creating file' });
-    }
-    res.json({ message: `File '${fileName}' created successfully.` });
-  });
+// Array to store request logs
+let requestLogs = [];
+
+// Root route to display requests and actions on http://localhost:5000/
+app.get('/', (req, res) => {
+  // Show the requests made by the user along with their actions
+  res.send(`
+    <h1>Welcome to the Express API server</h1>
+    <h2>Actions performed by users:</h2>
+    <ul>
+      ${requestLogs.map(log => `<li>${log}</li>`).join('')}
+    </ul>
+  `);
 });
 
-app.post('/read', (req, res) => {
-  const { fileName } = req.body;
-  fs.readFile(fileName, 'utf8', (err, data) => {
-    if (err) {
-      return res.status(500).json({ message: 'Error reading file' });
-    }
-    res.json({ message: `File content: ${data}` });
-  });
+// API Routes
+app.get('/api/get', (req, res) => {
+  // Log the action performed
+  const actionLog = `GET request received at ${new Date().toLocaleString()}`;
+  requestLogs.push(actionLog); // Store the log
+  res.json({ message: 'GET request received!' });
 });
 
-app.post('/write', (req, res) => {
-  const { fileName, content } = req.body;
-  fs.appendFile(fileName, content + '\n', (err) => {
-    if (err) {
-      return res.status(500).json({ message: 'Error writing to file' });
-    }
-    res.json({ message: `Content written to '${fileName}'.` });
-  });
+app.post('/api/post', (req, res) => {
+  const { data } = req.body;
+  // Log the action performed along with the data
+  const actionLog = `POST request received at ${new Date().toLocaleString()} with data: "${data}"`;
+  requestLogs.push(actionLog); // Store the log
+  res.json({ message: 'POST request received!', data });
 });
 
-app.post('/delete', (req, res) => {
-  const { fileName } = req.body;
-  fs.unlink(fileName, (err) => {
-    if (err) {
-      return res.status(500).json({ message: 'Error deleting file' });
-    }
-    res.json({ message: `File '${fileName}' deleted successfully.` });
-  });
+app.put('/api/put', (req, res) => {
+  const { data } = req.body;
+  // Log the action performed along with the data
+  const actionLog = `PUT request received at ${new Date().toLocaleString()} with updated data: "${data}"`;
+  requestLogs.push(actionLog); // Store the log
+  res.json({ message: 'PUT request received!', updatedData: data });
 });
 
-const PORT = 5000;
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+app.delete('/api/delete', (req, res) => {
+  // Log the action performed
+  const actionLog = `DELETE request received at ${new Date().toLocaleString()}`;
+  requestLogs.push(actionLog); // Store the log
+  res.json({ message: 'DELETE request received!' });
+});
+
+// Start the server
+app.listen(port, () => {
+  console.log(`Server is running on http://localhost:${port}`);
 });

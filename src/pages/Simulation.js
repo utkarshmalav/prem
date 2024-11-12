@@ -1,96 +1,83 @@
 import React, { useState } from 'react';
-import './Simulation.css'; 
+import './Simulation.css';
 
 function Simulation() {
-  const [fileName, setFileName] = useState('');
-  const [content, setContent] = useState('');
-  const [operation, setOperation] = useState('');
-  const [result, setResult] = useState('');
+  const [requestType, setRequestType] = useState('');
+  const [requestData, setRequestData] = useState('');
+  const [response, setResponse] = useState('');
 
-  const handleOperation = async (e) => {
+  const handleRequest = async (e) => {
     e.preventDefault();
-    if (!fileName || !operation) {
-      setResult('Please enter a file name and select an operation.');
+
+    if (!requestType) {
+      setResponse('Please select a request type.');
       return;
     }
 
-    const requestBody = { fileName, content };
-    let apiUrl = `http://localhost:5000/${operation}`;
+    let apiUrl = `http://localhost:5000/api/${requestType.toLowerCase()}`;
+
+    const options = {
+      method: requestType,
+      headers: { 'Content-Type': 'application/json' },
+      ...(requestType === 'POST' || requestType === 'PUT' ? { body: JSON.stringify({ data: requestData }) } : {}),
+    };
 
     try {
-      const response = await fetch(apiUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(requestBody)
-      });
-      const data = await response.json();
-      setResult(data.message);
+      const res = await fetch(apiUrl, options);
+      const data = await res.json();
+      setResponse(data.message || data.updatedData || data.data || 'Success');
     } catch (error) {
-      setResult('Error occurred while performing the operation.');
+      setResponse('Error occurred while performing the request.');
     }
   };
 
   return (
     <div className="simulation-container">
-      {/* Input Section */}
-      <div className="input-section">
-        <h2>Input</h2>
-        <form onSubmit={handleOperation}>
+      {/* Request Section */}
+      <div className="request-section">
+        <h2>Request Simulation</h2>
+        <form onSubmit={handleRequest}>
           <div className="form-group">
-            <label>File Name:</label>
-            <input
-              type="text"
-              value={fileName}
-              onChange={(e) => setFileName(e.target.value)}
-              placeholder="Enter file name"
-              required
-            />
-          </div>
-
-          <div className="form-group">
-            <label>Content (for write operation):</label>
-            <textarea
-              value={content}
-              onChange={(e) => setContent(e.target.value)}
-              rows="5"
-              placeholder="Leave blank for other operations"
-            />
-          </div>
-
-          <div className="form-group">
-            <label>Select Operation:</label>
-            <select
-              value={operation}
-              onChange={(e) => setOperation(e.target.value)}
-              required
-            >
-              <option value="">-- Select Operation --</option>
-              <option value="create">Create File</option>
-              <option value="read">Read File</option>
-              <option value="write">Write to File</option>
-              <option value="delete">Delete File</option>
+            <label>Select Request Type:</label>
+            <select value={requestType} onChange={(e) => setRequestType(e.target.value)} required>
+              <option value="">-- Select Request Type --</option>
+              <option value="GET">GET</option>
+              <option value="POST">POST</option>
+              <option value="PUT">PUT</option>
+              <option value="DELETE">DELETE</option>
             </select>
           </div>
 
-          <button type="submit" className="execute-button">Execute</button>
+          {(requestType === 'POST' || requestType === 'PUT') && (
+            <div className="form-group">
+              <label>Data (for POST/PUT requests):</label>
+              <textarea
+                value={requestData}
+                onChange={(e) => setRequestData(e.target.value)}
+                rows="4"
+                placeholder="Enter request data"
+              />
+            </div>
+          )}
+
+          <button type="submit" className="execute-button">Send Request</button>
         </form>
       </div>
 
-      {/* Steps to Execution Section */}
+      {/* Steps Section */}
       <div className="steps-section">
         <h2>Steps to Execution</h2>
-        <p>1. Enter the file name in the input field.</p>
-        <p>2. Optionally, provide content if you are writing to a file.</p>
-        <p>3. Choose the operation (Create, Read, Write, or Delete).</p>
-        <p>4. Click the "Execute" button to perform the operation.</p>
-        <p>5. The result of the operation will be displayed on the output section.</p>
+        <p>1. Select the request type (GET, POST, PUT, DELETE).</p>
+        <p>2. Optionally, provide data for POST or PUT requests.</p>
+        <p>3. Click the "Send Request" button to execute the request.</p>
+        <p>4. The response from the server will be displayed in the Response section.</p>
       </div>
 
-      {/* Output Section */}
-      <div className="output-section">
-        <h2>Output</h2>
+      {/* Response Section */}
+      <div className="response-section">
+        <h2>Response</h2>
         <div className="result-box">
-          {result ? <p>{result}</p> : <p>No operation performed yet.</p>}
+          {response ? <p>{response}</p> : <p>No request sent yet.</p>}
         </div>
       </div>
     </div>

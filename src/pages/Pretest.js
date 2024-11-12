@@ -1,77 +1,77 @@
 import React, { useState } from 'react';
-import './Pretest.css'; 
+import './Pretest.css';
 
 const Pretest = () => {
   const questions = [
     {
-      question: "Which method is used to create a new Express application?",
-      options: ["express()", "createExpress()", "new Express()", "app()"],
-      correctAnswer: 0, 
+      question: "What is Express.js primarily used for?",
+      options: ["Frontend development", "Backend development", "Database management", "Testing"],
+      correctAnswer: 1,
     },
     {
-      question: "What is the correct syntax for defining a GET route in Express?",
+      question: "Which function handles HTTP requests in Express?",
+      options: ["router", "request", "response", "middleware"],
+      correctAnswer: 0,
+    },
+    {
+      question: "How do you send a JSON response in Express?",
+      options: ["res.send()", "res.render()", "res.json()", "res.data()"],
+      correctAnswer: 2,
+    },
+    {
+      question: "What is the purpose of `app.use()` in Express?",
       options: [
-        "app.use('/path', (req, res) => {})",
-        "app.post('/path', (req, res) => {})",
-        "app.get('/path', (req, res) => {})",
-        "app.route('/path').get((req, res) => {})"
+        "Define routes",
+        "Handle middleware",
+        "Connect to a database",
+        "Render templates"
       ],
-      correctAnswer: 2, 
+      correctAnswer: 1,
     },
     {
-      question: "In Express, what method is used to send a response to the client?",
-      options: ["res.render()", "res.send()", "res.fetch()", "res.client()"],
-      correctAnswer: 1, 
+      question: "Which Express module helps in routing HTTP requests?",
+      options: ["fs", "path", "router", "module"],
+      correctAnswer: 2,
     },
     {
-      question: "Which property of req contains URL parameters?",
-      options: ["req.body", "req.query", "req.params", "req.url"],
-      correctAnswer: 2, 
+      question: "How do you start a server in Express?",
+      options: ["app.begin()", "app.start()", "app.run()", "app.listen()"],
+      correctAnswer: 3,
     },
     {
-      question: "How do you handle middleware in Express?",
+      question: "Which middleware parses URL-encoded data?",
       options: [
-        "app.use()",
-        "app.middleware()",
-        "app.next()",
-        "app.handler()"
+        "body-parser",
+        "url-parser",
+        "express-encode",
+        "urlencoded"
       ],
-      correctAnswer: 0, 
+      correctAnswer: 0,
     },
     {
-      question: "Which method would you use to define a POST route in Express?",
-      options: ["app.get()", "app.post()", "app.put()", "app.fetch()"],
-      correctAnswer: 1, 
-    },
-    {
-      question: "What function is called to listen on a specific port in an Express app?",
-      options: ["app.port()", "app.listen()", "app.run()", "app.connect()"],
-      correctAnswer: 1, 
-    },
-    {
-      question: "How do you parse JSON data in a POST request body in Express?",
+      question: "How do you set up an error-handling middleware in Express?",
       options: [
-        "app.use(express.json())",
-        "app.parseJson()",
-        "app.postJson()",
-        "app.jsonParser()"
+        "app.use(errorHandler)",
+        "app.set(errorHandler)",
+        "app.error(errorHandler)",
+        "app.listen(errorHandler)"
       ],
-      correctAnswer: 0, 
+      correctAnswer: 0,
     },
     {
-      question: "Which method is used to serve static files in Express?",
-      options: ["app.static()", "express.static()", "app.serve()", "express.serveStatic()"],
-      correctAnswer: 1, 
+      question: "What command installs Express.js in your project?",
+      options: ["npm install express", "npm get express", "install express", "create express"],
+      correctAnswer: 0,
     },
     {
-      question: "How do you send an HTTP status code in an Express response?",
+      question: "Which object stores query parameters in Express?",
       options: [
-        "res.sendStatus(code)",
-        "res.statusCode(code)",
-        "res.status(code).send()",
-        "res.setStatus(code)"
+        "req.query",
+        "req.body",
+        "req.params",
+        "req.url"
       ],
-      correctAnswer: 2, 
+      correctAnswer: 0,
     },
   ];
 

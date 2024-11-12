@@ -4,87 +4,102 @@ import './Posttest.css';
 const Posttest = () => {
   const questions = [
     {
-      question: "How do you send a JSON response in Express.js?",
+      question: "What is Express.js?",
       options: [
-        "a) res.send()",
-        "b) res.sendJSON()",
-        "c) res.json()",
-        "d) res.writeJSON()"
+        "a) A front-end framework for JavaScript",
+        "b) A back-end framework for Node.js",
+        "c) A database management system",
+        "d) A CSS framework"
       ],
-      correctAnswer: 2,
+      correctAnswer: 1,
     },
     {
-      question: "What method is used to define a route in Express.js?",
+      question: "Which method is used to define a route in Express.js?",
       options: [
         "a) app.route()",
-        "b) app.get() or app.post()",
-        "c) app.define()",
-        "d) app.addRoute()"
+        "b) app.createRoute()",
+        "c) app.get()",
+        "d) app.openRoute()"
       ],
-      correctAnswer: 1,
-    },
-    {
-      question: "Which middleware function in Express.js parses JSON bodies of requests?",
-      options: [
-        "a) express.static",
-        "b) express.json",
-        "c) express.urlEncoded",
-        "d) express.cookieParser"
-      ],
-      correctAnswer: 1,
-    },
-    {
-      question: "What status code does res.status(404).send('Not found') represent?",
-      options: ["a) Success", "b) Unauthorized", "c) Not Found", "d) Internal Server Error"],
       correctAnswer: 2,
     },
     {
-      question: "Which HTTP method is used to retrieve data from the server?",
-      options: ["a) POST", "b) DELETE", "c) GET", "d) PUT"],
-      correctAnswer: 2,
-    },
-    {
-      question: "How can you send a request payload in JSON format to an Express server?",
+      question: "How do you handle JSON payloads in Express.js?",
       options: [
-        "a) Use req.json()",
-        "b) Use JSON.stringify() in request body",
-        "c) Use req.body.stringify()",
-        "d) Use req.write()"
+        "a) By using the urlencoded middleware",
+        "b) By using the express.json() middleware",
+        "c) By using the fs module",
+        "d) By using the body-parser module only"
       ],
       correctAnswer: 1,
     },
     {
-      question: "In Express.js, how do you define a middleware to handle all routes?",
+      question: "Which HTTP method is commonly used to retrieve data?",
       options: [
-        "a) app.route()",
-        "b) app.use()",
-        "c) app.handle()",
-        "d) app.router()"
+        "a) POST",
+        "b) PUT",
+        "c) DELETE",
+        "d) GET"
       ],
-      correctAnswer: 1,
-    },
-    {
-      question: "Which method allows you to handle errors in Express.js?",
-      options: ["a) app.error()", "b) app.catch()", "c) errorHandler()", "d) Error-handling middleware"],
       correctAnswer: 3,
     },
     {
-      question: "What does req.params capture in Express.js?",
+      question: "What does the app.use() method do in Express.js?",
       options: [
-        "a) Query string parameters",
-        "b) Route parameters",
-        "c) Request body data",
-        "d) Server configuration settings"
+        "a) Defines a specific route",
+        "b) Adds middleware to the Express app",
+        "c) Closes the Express app",
+        "d) Connects to a database"
       ],
       correctAnswer: 1,
     },
     {
-      question: "How do you serve static files in Express.js?",
+      question: "How can you serve static files in Express.js?",
       options: [
-        "a) app.serveStatic()",
-        "b) app.use(express.static())",
-        "c) app.getStatic()",
-        "d) app.loadStatic()"
+        "a) Using express.static()",
+        "b) Using fs.serveStatic()",
+        "c) Using express.serveFile()",
+        "d) Using app.serveStatic()"
+      ],
+      correctAnswer: 0,
+    },
+    {
+      question: "Which middleware is used to handle form submissions?",
+      options: [
+        "a) body-parser",
+        "b) fs",
+        "c) serve-form",
+        "d) multer"
+      ],
+      correctAnswer: 0,
+    },
+    {
+      question: "What will app.get('/', callback) do?",
+      options: [
+        "a) Define a route for the home page",
+        "b) Define a route for the about page",
+        "c) Close the server",
+        "d) Serve static files"
+      ],
+      correctAnswer: 0,
+    },
+    {
+      question: "Which method is used to send a response to the client in Express.js?",
+      options: [
+        "a) app.send()",
+        "b) res.send()",
+        "c) req.send()",
+        "d) server.send()"
+      ],
+      correctAnswer: 1,
+    },
+    {
+      question: "How can you handle 404 errors in Express.js?",
+      options: [
+        "a) By using app.get()",
+        "b) By using a 404 handler middleware",
+        "c) By using app.error()",
+        "d) By using express.notFound()"
       ],
       correctAnswer: 1,
     },
@@ -120,7 +135,7 @@ const Posttest = () => {
             {question.options.map((option, optionIndex) => (
               <div key={optionIndex} className="option-block">
                 <label
-                  className={`option ${
+                  className={
                     submitted &&
                     userAnswers[questionIndex] === optionIndex &&
                     optionIndex !== question.correctAnswer
@@ -128,7 +143,7 @@ const Posttest = () => {
                       : submitted && optionIndex === question.correctAnswer
                       ? 'correct-option'
                       : ''
-                  }`}
+                  }
                 >
                   <input
                     type="radio"

@@ -5,34 +5,34 @@ const Procedure = () => {
   return (
     <div className="procedure-content">
       <h3>Procedure</h3>
-      <p>Follow these steps to complete the experiment using Node.js File System module:</p>
+      <p>Follow these steps to complete the experiment using Express.js for handling HTTP requests and responses:</p>
       <ol>
         <li>
-          <strong>Read Node.js Documentation:</strong> Understand the available file system operations and methods.
+          <strong>Read Express.js Documentation:</strong> Understand how to handle HTTP requests and responses in Express.js.
         </li>
         <li>
-          <strong>Import the 'fs' module:</strong> Use <code>require('fs')</code> to include the file system module in your code.
+          <strong>Set Up Express.js Server:</strong> Create an Express server using <code>const app = express();</code> and define routes for different HTTP methods (GET, POST, PUT, DELETE).
         </li>
         <li>
-          <strong>Create or Open a File:</strong> Use <code>fs.open()</code> to create or open a file with appropriate flags.
+          <strong>Handle GET Requests:</strong> Use <code>app.get()</code> to define a route for handling GET requests. Send data or messages back using <code>res.json()</code>.
         </li>
         <li>
-          <strong>Read File Contents:</strong> Use <code>fs.readFileSync()</code> or <code>fs.readFile()</code> to read the contents of a file.
+          <strong>Handle POST Requests:</strong> Use <code>app.post()</code> to handle POST requests. Extract data from the request body using <code>req.body</code> and send a response back.
         </li>
         <li>
-          <strong>Write Data to a File:</strong> Use <code>fs.writeFile()</code> to write data to the file.
+          <strong>Handle PUT Requests:</strong> Use <code>app.put()</code> to handle PUT requests. Update resources or data using <code>req.body</code> and send a response.
         </li>
         <li>
-          <strong>Check File Status:</strong> Use <code>fs.stat()</code> to retrieve information about the file, such as its size and modification time.
+          <strong>Handle DELETE Requests:</strong> Use <code>app.delete()</code> to handle DELETE requests and send a response indicating the resource deletion.
         </li>
         <li>
-          <strong>Delete a File:</strong> Use <code>fs.unlink()</code> to delete a file from the system.
+          <strong>Handle Errors:</strong> Use error handling middleware to catch errors and send appropriate error messages to the client.
         </li>
         <li>
-          <strong>Observe Code Execution:</strong> Pay attention to the code execution in your editor/IDE and check the console output for any errors or logs.
+          <strong>Test API Endpoints:</strong> Use tools like Postman or the frontend simulation to test the GET, POST, PUT, and DELETE API endpoints.
         </li>
         <li>
-          <strong>Handle Errors:</strong> Always handle potential errors using <code>try-catch</code> or error-first callbacks to ensure smooth operation.
+          <strong>Observe Code Execution:</strong> Monitor the server logs and client-side responses to ensure the API is working as expected.
         </li>
       </ol>
     </div>
